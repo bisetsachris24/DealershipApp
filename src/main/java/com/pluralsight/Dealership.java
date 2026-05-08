@@ -17,10 +17,16 @@ public class Dealership {
         this.inventory = new ArrayList<>();
     }
 
-    // ----- Search methods (stubs for now — Phase 5 fills these in) -----
+
 
     public List<Vehicle> getVehiclesByPrice(double min, double max) {
-        return null;
+        List<Vehicle> matches = new ArrayList<>();
+        for (Vehicle v : inventory) {
+            if (v.getPrice() >= min && v.getPrice() <= max) {
+                matches.add(v);
+            }
+        }
+        return matches;
     }
 
     public List<Vehicle> getVehiclesByMakeModel(String make, String model) {

@@ -6,23 +6,23 @@ import java.util.Scanner;
 public class UserInterface {
 
     private Dealership dealership;
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner thescanner = new Scanner(System.in);
 
     public UserInterface() {
         // Empty constructor; init() handles loading the dealership.
     }
 
-    // ---------------------------------------------------------------
+
     // Public entry point
-    // ---------------------------------------------------------------
+
 
     public void display() {
         init();
 
-        boolean running = true;
-        while (running) {
+        boolean Apprunning = true;
+        while (Apprunning) {
             displayMenu();
-            String command = scanner.nextLine().trim();
+            String command = thescanner.nextLine().trim();
 
             switch (command) {
                 case "1":
@@ -53,7 +53,7 @@ public class UserInterface {
                     processRemoveVehicleRequest();
                     break;
                 case "99":
-                    running = false;
+                    Apprunning = false;
                     System.out.println("Goodbye!");
                     break;
                 default:
@@ -109,7 +109,7 @@ public class UserInterface {
     // ---------------------------------------------------------------
 
     public void processGetByPriceRequest() {
-        // Phase 5
+
     }
 
     public void processGetByMakeModelRequest() {
@@ -125,7 +125,7 @@ public class UserInterface {
     }
 
     public void processGetByMileageRequest() {
-        // Phase 5
+
     }
 
     public void processGetByVehicleTypeRequest() {
