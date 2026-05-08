@@ -77,7 +77,7 @@ public class UserInterface {
 
     private void displayMenu() {
         System.out.println();
-        System.out.println("=========== " + dealership.getName() + " ===========");
+        System.out.println( dealership.getName() );
         System.out.println("  1 - Find vehicles within a price range");
         System.out.println("  2 - Find vehicles by make / model");
         System.out.println("  3 - Find vehicles by year range");
@@ -194,5 +194,27 @@ public class UserInterface {
 
     public void processRemoveVehicleRequest() {
 
+//ask user for vin
+        int vin =Integer.parseInt(ask("VIN of vehicle to remove: "));
+
+
+// loop through all vehicles until u find one vehicle that matches the vin, if you don't find one say vehicle not find
+        Vehicle target = null;
+        for (Vehicle v : dealership.getAllVehicles()) {
+            if (v.getVin() == vin) {
+                target = v;
+                break;
+            }
+        }
+//once vehicle is found, you need to pass to dealership method to
+        if (target == null) {
+            System.out.println("No vehicle found with VIN " + vin + ".");
+            return;
+        }
+        //save veDealership
+
+        dealership.removeVehicle(target);
+        saveDealership();
+        System.out.println("Vehicle removed.");
     }
 }
