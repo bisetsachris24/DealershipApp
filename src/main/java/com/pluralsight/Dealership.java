@@ -30,7 +30,17 @@ public class Dealership {
     }
 
     public List<Vehicle> getVehiclesByMakeModel(String make, String model) {
-        return null;
+        List<Vehicle> matches = new ArrayList<>();
+        for (Vehicle v : inventory) {
+            boolean makeOk  = make  == null || make.isBlank()
+                    || v.getMake().equalsIgnoreCase(make);
+            boolean modelOk = model == null || model.isBlank()
+                    || v.getModel().equalsIgnoreCase(model);
+            if (makeOk && modelOk) {
+                matches.add(v);
+            }
+        }
+        return matches;
     }
 
     public List<Vehicle> getVehiclesByYear(int min, int max) {
