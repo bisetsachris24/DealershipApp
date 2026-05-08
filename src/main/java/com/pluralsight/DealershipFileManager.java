@@ -1,8 +1,6 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class DealershipFileManager {
 
@@ -58,6 +56,33 @@ public class DealershipFileManager {
     }
 
     public void saveDealership(Dealership dealership) {
+        if (dealership == null) {
+            System.out.println("Cannot save: dealership is null.");
+            return;
+        }
 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(AmaniFile))) {
+            // Line 1: dealership info
+            writer.write(dealership.getName() + DELIMITER
+                    + dealership.getAddress() + DELIMITER
+                    + dealership.getPhone());
+            writer.newLine();
+
+            // Lines 2+: each vehicle
+            for (Vehicle v : dealership.getAllVehicles()) {
+                writer.write(v.getVin()         + DELIMITER
+                        + v.getYear()        + DELIMITER
+                        + v.getMake()        + DELIMITER
+                        + v.getModel()       + DELIMITER
+                        + v.getVehicleType() + DELIMITER
+                        + v.getColor()       + DELIMITER
+                        + v.getOdometer()    + DELIMITER
+                        + String.format("%.2f", v.getPrice()));
+                writer.newLine();
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error saving inventory file: " + e.getMessage());
+        }
     }
 }

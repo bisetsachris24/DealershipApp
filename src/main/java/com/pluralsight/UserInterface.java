@@ -11,7 +11,10 @@ public class UserInterface {
     public UserInterface() {
         // Empty constructor; init() handles loading the dealership.
     }
-
+    private String ask(String message) {
+        System.out.print(message);
+        return thescanner.nextLine().trim();
+    }
 
     // Public entry point
 
@@ -104,44 +107,92 @@ public class UserInterface {
         }
     }
 
-    // ---------------------------------------------------------------
-    // Process methods (only #7 is wired up this phase)
-    // ---------------------------------------------------------------
+
+    // Process methods
+
 
     public void processGetByPriceRequest() {
-
+        try {
+            double min = Double.parseDouble(ask("Minimum price: "));
+            double max = Double.parseDouble(ask("Maximum price: "));
+            displayVehicles(dealership.getVehiclesByPrice(min, max));
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number. Returning to menu.");
+        }
     }
 
     public void processGetByMakeModelRequest() {
-        // Phase 5
+        String make  = ask("Make (leave blank for any): ");
+        String model = ask("Model (leave blank for any): ");
+        displayVehicles(dealership.getVehiclesByMakeModel(make, model));
+
     }
 
     public void processGetByYearRequest() {
-        // Phase 5
+        try {
+            int min = Integer.parseInt(ask("Minimum year: "));
+            int max = Integer.parseInt(ask("Maximum year: "));
+        displayVehicles(dealership.getVehiclesByYear(min, max));
+    } catch (NumberFormatException e) {
+        System.out.println("Invalid year. Returning to menu.");
+    }
     }
 
     public void processGetByColorRequest() {
-        // Phase 5
+        String color = ask("Color: ");
+        displayVehicles(dealership.getVehiclesByColor(color));
+
+
     }
 
     public void processGetByMileageRequest() {
+        try {
+            int min = Integer.parseInt(ask("Minimum mileage: "));
+            int max = Integer.parseInt(ask("Maximum mileage: "));
+            displayVehicles(dealership.getVehiclesByMileage(min, max));
 
+        }
+        catch (NumberFormatException e) {
+        System.out.println("Invalid mileage. Returning to menu.");
+    }
     }
 
     public void processGetByVehicleTypeRequest() {
-        // Phase 5
+        String type = ask("Vehicle type (car, truck, SUV, van): ");
+        displayVehicles(dealership.getVehiclesByType(type));
+
     }
 
     public void processAllVehiclesRequest() {
         List<Vehicle> vehicles = dealership.getAllVehicles();
         displayVehicles(vehicles);
     }
-
+    private void saveDealership() {
+        DealershipFileManager fileManager = new DealershipFileManager();
+        fileManager.saveDealership(dealership);
+    }
     public void processAddVehicleRequest() {
-        // Phase 5
+        try {
+            int vin = Integer.parseInt(ask("VIN: "));
+            int year = Integer.parseInt(ask("Year: "));
+            String make = ask("Make: ");
+            String model = ask("Model: ");
+            String vehicleType = ask("Type (car, truck, SUV, van): ");
+            String color = ask("Color: ");
+            int odometer = Integer.parseInt(ask("Odometer: "));
+            double price = Double.parseDouble(ask("Price: "));
+
+            Vehicle vehicle = new Vehicle(vin, year, make, model,
+                    vehicleType, color, odometer, price);
+            dealership.addVehicle(vehicle);
+            saveDealership();
+            System.out.println("Vehicle added.");
+        }catch (NumberFormatException e) {
+        System.out.println("Invalid input. Vehicle not added.");
+    }
     }
 
     public void processRemoveVehicleRequest() {
-        // Phase 5
+
     }
 }

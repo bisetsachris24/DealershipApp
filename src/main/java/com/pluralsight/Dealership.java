@@ -70,7 +70,7 @@ public class Dealership {
     }
 
     public void removeVehicle(Vehicle vehicle) {
-        // Empty for now — Phase 5
+
     }
 
     // ----- Getters & Setters (no setter for inventory by design) -----
