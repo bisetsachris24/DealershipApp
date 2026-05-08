@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class DealershipFileManager {
 
-    private static final String AmaniFile = "sr/main/resources/inventory.csv";
+    private static final String AmaniFile = "src/main/resources/inventory.csv";
     private static final String DELIMITER = "\\|";;
     ;
 
@@ -58,6 +58,6 @@ public class DealershipFileManager {
     }
 
     public void saveDealership(Dealership dealership) {
-        // Phase 5: write dealership header + each vehicle back to inventory.csv
+
     }
 }
